@@ -15,10 +15,26 @@ docs/      Modelo de dominio y decisiones
 ```bash
 cd backend
 npm install
+cp .env.example .env   # y poné un JWT_SECRET propio
 npm run dev
 ```
 
-Levanta en `http://localhost:3000` (`GET /health` para probar).
+Levanta en `http://localhost:3000` (`GET /health` para probar). Tests: `npm test`.
+
+Arquitectura y endpoints: [docs/arquitectura-backend.md](docs/arquitectura-backend.md).
+
+### Usuarios de prueba (seed)
+
+Todos con la contraseña definida en `SEED_PASSWORD` (`backend/src/seed/seed.js`).
+
+| Email | Rol en el seed |
+|---|---|
+| ana@aiticketit.test | Organizadora (recitales, festival, stand-up) |
+| martin@aiticketit.test | Organizador (teatro, conferencia, deportes) y comprador |
+| sofia@aiticketit.test | Compradora (una compra en cada estado) |
+| juan@aiticketit.test | Comprador |
+
+Los datos viven en memoria: se reinician cada vez que se reinicia el server.
 
 ## Mobile
 

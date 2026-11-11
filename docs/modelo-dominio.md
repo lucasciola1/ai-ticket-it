@@ -10,6 +10,8 @@ Basado en el diagrama tentativo de la consigna, con ajustes para cubrir los caso
 | id | string |
 | nombre | string |
 | apellido | string |
+| email | string (único) |
+| passwordHash | string (bcrypt, nunca se expone) |
 | favoritos | eventoId[] |
 
 No tiene rol: un usuario es **organizador** de los eventos que creó y **comprador** de sus compras.
@@ -102,7 +104,7 @@ El **puntaje del organizador** se calcula como el promedio de las reseñas de to
    No se puede cancelar si la compra está UTILIZADA o si el evento ya ocurrió.
 2. **Cupo**: se descuenta al crear la compra (aunque quede PENDIENTE).
 3. **Relaciones por id**: evita referencias circulares al serializar a JSON; las validaciones entre entidades las orquestan los services.
-4. **Sin login real**: datos precargados y selector de "usuario actual" en la app, enviado en un header (`x-user-id`).
+4. **Autenticación con JWT**: registro y login con email y contraseña (hash con bcrypt). Ver [arquitectura-backend.md](arquitectura-backend.md).
 
 ## Repositorios (en memoria, uno por agregado)
 - `UsuarioRepository`
