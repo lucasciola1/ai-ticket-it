@@ -80,9 +80,12 @@ export class Compra {
     evento.buscarTipoEntrada(this.tipoEntradaId).liberar(this.cantidad);
   }
 
-  /** Días que faltan para el evento (0 si es hoy o ya pasó). */
+  /** Días de calendario que faltan para el evento (0 si es hoy o ya pasó). */
   diasParaEvento(evento, ahora = new Date()) {
-    return Math.max(0, Math.ceil((evento.fecha - ahora) / MS_POR_DIA));
+    const inicioDelDia = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    // round y no floor: absorbe el cambio de horario de verano
+    const dias = Math.round((inicioDelDia(evento.fecha) - inicioDelDia(ahora)) / MS_POR_DIA);
+    return Math.max(0, dias);
   }
 
   agregarMensaje(autorId, texto, enviado = new Date()) {

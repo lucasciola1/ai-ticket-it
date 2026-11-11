@@ -219,6 +219,10 @@ export function cargarSeed(repos, { saltRounds = 10 } = {}) {
   c10.actualizarEstado(EstadoCompra.CONFIRMADA, martin.id, dias(-4, 13));
   guardar(c10);
 
+  sofia.agregarFavorito(festival.id);
+  sofia.agregarFavorito(standupNoche.id);
+  usuarioRepository.save(sofia);
+
   // Los cupos cambiaron: guardamos los eventos de nuevo
   eventoRepository.findAll().forEach((e) => eventoRepository.save(e));
 

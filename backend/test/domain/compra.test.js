@@ -125,9 +125,15 @@ describe('Compra', () => {
     assert.throws(() => compra.cancelar(evento, 'comp'), /ya se realizó/);
   });
 
-  it('calcula los días que faltan para el evento', () => {
+  it('calcula los días de calendario que faltan para el evento', () => {
     const evento = crearEvento(enDias(5));
     assert.equal(crearCompra(evento).diasParaEvento(evento), 5);
+
+    // Evento mañana a las 9, ahora son las 23: falta 1 día aunque sean 10 horas
+    const manana = crearEvento(new Date(2030, 0, 2, 9));
+    assert.equal(crearCompra(manana).diasParaEvento(manana, new Date(2030, 0, 1, 23)), 1);
+    // Mismo día
+    assert.equal(crearCompra(manana).diasParaEvento(manana, new Date(2030, 0, 2, 8)), 0);
   });
 });
 

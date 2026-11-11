@@ -72,8 +72,8 @@ Los errores de dominio heredan de `AppError` (`statusCode`, `codigo`, `mensaje`,
 | Método | Ruta | Descripción |
 |---|---|---|
 | GET | `/categorias` | Categorías |
-| GET | `/eventos?q=&categoriaId=&precioMin=&precioMax=&orden=precio\|fecha\|puntaje&dir=asc\|desc&page=&limit=` | Búsqueda, filtros, orden, paginación → `{ items, total, page, totalPages }`. Oculta eventos pasados. |
-| GET | `/eventos/:id` | Detalle con tipos de entrada (disponibles) y organizador con puntaje |
+| GET 🔓 | `/eventos?q=&categoriaId=&precioMin=&precioMax=&orden=precio\|fecha\|puntaje&dir=asc\|desc&page=&limit=` | Búsqueda, filtros, orden, paginación → `{ items, total, page, totalPages }`. Oculta eventos pasados. |
+| GET 🔓 | `/eventos/:id` | Detalle con tipos de entrada (disponibles) y organizador con puntaje |
 | GET | `/organizadores/:id/resenias` | Reseñas de eventos del organizador + promedio |
 
 ### Organizador
@@ -94,6 +94,31 @@ Los errores de dominio heredan de `AppError` (`statusCode`, `codigo`, `mensaje`,
 | POST 🔒 | `/compras/:id/utilizar` | CONFIRMADA → UTILIZADA (solo organizador) |
 | GET / POST 🔒 | `/compras/:id/mensajes` | Chat de la compra (comprador u organizador) |
 | POST 🔒 | `/compras/:id/resenia` | `{ puntuacion, detalle }` (compra UTILIZADA, una vez) |
+
+🔓 = token opcional: `GET /eventos` y `GET /eventos/:id` funcionan sin sesión; si viene el token, marcan `esFavorito` / `esOrganizador`.
+
+## Respuestas para el front
+
+- **Evento (resumen)**: `id, nombre, fecha, lugar, imagen, categoria, precioMinimo, organizador { id, nombre, apellido, puntaje, cantidadResenias }, finalizado, agotado, esFavorito`. El detalle suma `descripcion, multimedia, tiposEntrada [{ precio, cupo, vendidas, disponibles, agotado }], esOrganizador`.
+- **Compra**: `id, rol, estado, cantidad, precioUnitario, total, fechaCompra, diasParaEvento` (solo si CONFIRMADA, si no `null`), `evento, tipoEntrada, comprador, cantidadMensajes, resenia` y **`acciones { pagar, cancelar, utilizar, reseniar }`**, que dice qué botones mostrar según el rol del usuario. El detalle suma `historial [{ estado, fechaHora, quien }]`.
+- **Compras del evento (organizador)**: `{ evento, tiposEntrada, resumenPorEstado { PENDIENTE: n, … }, compras }`, filtrable con `?estado=`.
+
+## Reglas de negocio implementadas
+
+| Regla | Error |
+|---|---|
+| No superar el cupo del tipo de entrada | 409 `SIN_CUPO` |
+| Máximo 10 entradas por compra | 400 `VALIDACION` |
+| No comprar entradas de un evento pasado | 400 `EVENTO_FINALIZADO` |
+| El organizador no compra entradas de su propio evento | 403 `PROPIO_EVENTO` |
+| Solo el comprador paga y cancela; solo el organizador marca UTILIZADA | 403 `SOLO_COMPRADOR` / `SOLO_ORGANIZADOR` |
+| No cancelar si está UTILIZADA, ya cancelada/reembolsada, o el evento ya ocurrió | 409 `COMPRA_NO_CANCELABLE` |
+| Transiciones de estado inválidas | 409 `TRANSICION_INVALIDA` |
+| Chat y detalle: solo comprador u organizador | 403 `SIN_ACCESO` |
+| Reseña solo con la compra UTILIZADA, una por compra, puntuación entera 1–5 | 409 `COMPRA_NO_UTILIZADA` / `RESENIA_EXISTENTE` |
+| Evento: fecha futura, ≥ 1 tipo de entrada, sin nombres de tipo repetidos, categoría existente | 400 |
+
+El organizador puede marcar una entrada como UTILIZADA en cualquier momento (no solo el día del evento), para poder demostrar el flujo de reseñas.
 
 ## Decisiones
 
