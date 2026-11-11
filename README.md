@@ -40,6 +40,8 @@ Los datos viven en memoria: se reinician cada vez que se reinicia el server.
 
 Requiere Android Studio (SDK + emulador o celular por USB) o Xcode para iOS.
 
+Arquitectura, pantallas y librerías: [docs/arquitectura-frontend.md](docs/arquitectura-frontend.md).
+
 ```bash
 cd mobile
 npm install
