@@ -1,7 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@emotion/react';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons/static';
-import { ExplorarScreen, MisComprasScreen, MisEventosScreen } from '../screens/PantallasPendientes';
+import { MisEventosScreen } from '../screens/PantallasPendientes';
+import { MisComprasScreen } from '../screens/compras/MisComprasScreen';
+import { ExplorarScreen } from '../screens/eventos/ExplorarScreen';
 import { PerfilScreen } from '../screens/perfil/PerfilScreen';
 
 const Tab = createBottomTabNavigator();

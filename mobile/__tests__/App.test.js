@@ -2,13 +2,21 @@
 import { render, screen, userEvent } from '@testing-library/react-native';
 import App from '../App';
 import * as authService from '../src/services/authService';
+import * as eventoService from '../src/services/eventoService';
+import * as categoriaService from '../src/services/categoriaService';
+import { categorias, paginaDeEventos } from '../test-utils/fixtures';
 
 jest.mock('../src/services/authService');
+jest.mock('../src/services/eventoService');
+jest.mock('../src/services/categoriaService');
 
 const sofia = { id: 'u1', nombre: 'Sofía', apellido: 'Fernández', email: 'sofia@aiticketit.test', favoritos: [] };
 
 beforeEach(() => {
   jest.clearAllMocks();
+  eventoService.buscarEventos.mockResolvedValue(paginaDeEventos([]));
+  eventoService.obtenerFavoritos.mockResolvedValue([]);
+  categoriaService.obtenerCategorias.mockResolvedValue(categorias);
 });
 
 test('sin sesión se puede navegar y las pestañas privadas piden iniciar sesión', async () => {

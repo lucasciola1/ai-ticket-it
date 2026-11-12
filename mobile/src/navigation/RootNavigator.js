@@ -6,6 +6,11 @@ import { useAuth } from '../context/AuthContext';
 import { AppTabs } from './AppTabs';
 import { LoginScreen } from '../screens/auth/LoginScreen';
 import { RegistroScreen } from '../screens/auth/RegistroScreen';
+import { DetalleEventoScreen } from '../screens/eventos/DetalleEventoScreen';
+import { ComprarScreen } from '../screens/compras/ComprarScreen';
+import { DetalleCompraScreen } from '../screens/compras/DetalleCompraScreen';
+import { ChatScreen } from '../screens/compras/ChatScreen';
+import { ReseniarScreen } from '../screens/compras/ReseniarScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,7 +46,12 @@ export function RootNavigator() {
       }}
     >
       <Stack.Screen name="Tabs" component={AppTabs} options={{ headerShown: false }} />
+      <Stack.Screen name="DetalleEvento" component={DetalleEventoScreen} options={{ title: 'Evento' }} />
+      <Stack.Screen name="DetalleCompra" component={DetalleCompraScreen} options={{ title: 'Compra' }} />
+      <Stack.Screen name="Chat" component={ChatScreen} options={{ title: 'Mensajes' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Screen name="Comprar" component={ComprarScreen} options={{ title: 'Comprar entradas' }} />
+        <Stack.Screen name="Reseniar" component={ReseniarScreen} options={{ title: 'Calificar evento' }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Iniciar sesión' }} />
         <Stack.Screen name="Registro" component={RegistroScreen} options={{ title: 'Crear cuenta' }} />
       </Stack.Group>

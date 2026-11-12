@@ -59,4 +59,11 @@ npm run android    # en otra terminal
    ```bash
    adb reverse tcp:3000 tcp:3000 && adb reverse tcp:8081 tcp:8081
    ```
-3. Si aparece **"Unable to load script"**: en el emulador, `Cmd + M` → *Settings* → *Debug server host & port* → `localhost:8081`, y recargar (`R R`). Por defecto el emulador busca Metro en `10.0.2.2`, que en Android 17 requiere el permiso de red local (lo sacamos del manifest porque no hace falta con `adb reverse`).
+3. Después de instalar la app, otorgarle el permiso de red local (solo existe en el build de debug: lo usa para llegar a Metro en `10.0.2.2`). Así no aparece el cartel de "dispositivos cercanos" y la app no muestra "Unable to load script":
+   ```bash
+   adb shell pm grant com.aiticketit android.permission.ACCESS_LOCAL_NETWORK
+   ```
+4. Poner el emulador en hora argentina (si no, las fechas se ven en UTC):
+   ```bash
+   adb shell cmd alarm set-timezone America/Argentina/Buenos_Aires
+   ```

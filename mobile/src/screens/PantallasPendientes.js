@@ -18,22 +18,6 @@ const EnConstruccion = () => (
   </Centro>
 );
 
-export const ExplorarScreen = EnConstruccion;
-
-export function MisComprasScreen() {
-  const { usuario } = useAuth();
-  if (!usuario) {
-    return (
-      <RequiereSesion
-        titulo="Tus compras"
-        mensaje="Iniciá sesión para ver tus compras y cuántos días faltan para cada evento."
-        icono="ticket-confirmation-outline"
-      />
-    );
-  }
-  return <EnConstruccion />;
-}
-
 export function MisEventosScreen() {
   const { usuario } = useAuth();
   if (!usuario) {

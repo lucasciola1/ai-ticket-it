@@ -1,6 +1,12 @@
 import styled from '@emotion/native';
+import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
+import { useFavoritos } from '../../context/FavoritosContext';
+import { useCarga } from '../../hooks/useCarga';
+import { obtenerFavoritos } from '../../services/eventoService';
 import { Boton } from '../../components/Boton';
+import { EstadoCarga } from '../../components/EstadoCarga';
+import { EventoCard } from '../../components/EventoCard';
 import { RequiereSesion } from '../../components/RequiereSesion';
 import { PantallaScroll, Subtitulo, TextoSecundario } from '../../components/Textos';
 
@@ -30,6 +36,39 @@ const Acciones = styled.View`
   padding: ${({ theme }) => `${theme.espacio.xl}px`};
 `;
 
+const Favoritos = styled.View`
+  padding: ${({ theme }) => `0px ${theme.espacio.l}px`};
+  gap: ${({ theme }) => `${theme.espacio.m}px`};
+`;
+
+function MisFavoritos() {
+  const navigation = useNavigation();
+  const { favoritos } = useFavoritos();
+  // Se vuelve a pedir cuando cambia el set de favoritos (marcar/desmarcar en otra pantalla)
+  const { datos, cargando, error, recargar } = useCarga(obtenerFavoritos, [favoritos]);
+
+  return (
+    <Favoritos>
+      <Subtitulo>Mis favoritos</Subtitulo>
+      <EstadoCarga
+        cargando={cargando && !datos}
+        error={error}
+        onReintentar={recargar}
+        vacio={datos?.length === 0}
+        mensajeVacio="Tocá el ♥ de un evento para guardarlo acá."
+      >
+        {(datos ?? []).map((evento) => (
+          <EventoCard
+            key={evento.id}
+            evento={evento}
+            onPress={() => navigation.navigate('DetalleEvento', { eventoId: evento.id })}
+          />
+        ))}
+      </EstadoCarga>
+    </Favoritos>
+  );
+}
+
 export function PerfilScreen() {
   const { usuario, logout } = useAuth();
 
@@ -52,6 +91,7 @@ export function PerfilScreen() {
         <Subtitulo>{`${usuario.nombre} ${usuario.apellido}`}</Subtitulo>
         <TextoSecundario>{usuario.email}</TextoSecundario>
       </Encabezado>
+      <MisFavoritos />
       <Acciones>
         <Boton titulo="Cerrar sesión" variante="secundario" onPress={logout} />
       </Acciones>
