@@ -11,6 +11,8 @@ import { ComprarScreen } from '../screens/compras/ComprarScreen';
 import { DetalleCompraScreen } from '../screens/compras/DetalleCompraScreen';
 import { ChatScreen } from '../screens/compras/ChatScreen';
 import { ReseniarScreen } from '../screens/compras/ReseniarScreen';
+import { CrearEventoScreen } from '../screens/organizador/CrearEventoScreen';
+import { ComprasDelEventoScreen } from '../screens/organizador/ComprasDelEventoScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +51,8 @@ export function RootNavigator() {
       <Stack.Screen name="DetalleEvento" component={DetalleEventoScreen} options={{ title: 'Evento' }} />
       <Stack.Screen name="DetalleCompra" component={DetalleCompraScreen} options={{ title: 'Compra' }} />
       <Stack.Screen name="Chat" component={ChatScreen} options={{ title: 'Mensajes' }} />
+      <Stack.Screen name="CrearEvento" component={CrearEventoScreen} options={{ title: 'Nuevo evento' }} />
+      <Stack.Screen name="ComprasDelEvento" component={ComprasDelEventoScreen} options={{ title: 'Ventas' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Comprar" component={ComprarScreen} options={{ title: 'Comprar entradas' }} />
         <Stack.Screen name="Reseniar" component={ReseniarScreen} options={{ title: 'Calificar evento' }} />

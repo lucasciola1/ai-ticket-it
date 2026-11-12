@@ -70,6 +70,19 @@ export const compra = ({ estado = 'PENDIENTE', ...datos } = {}) => ({
   ...datos,
 });
 
+export const ana = { id: 'org1', nombre: 'Ana', apellido: 'García', email: 'ana@aiticketit.test', favoritos: [] };
+
+/** Respuesta de GET /eventos/:id/compras (vista del organizador), ya adaptada. */
+export const ventasDelEvento = ({ compras = [], resumenPorEstado } = {}) => ({
+  evento: { id: 'ev1', nombre: 'Noche de Rock Nacional', fecha: new Date('2030-12-06T21:00:00'), lugar: 'Estadio Obras, CABA' },
+  tiposEntrada: [
+    { id: 't1', nombre: 'Platea', precio: 40000, cupo: 150, vendidas: 30, disponibles: 120, agotado: false },
+    { id: 't2', nombre: 'VIP', precio: 90000, cupo: 20, vendidas: 19, disponibles: 1, agotado: false },
+  ],
+  resumenPorEstado: resumenPorEstado ?? { PENDIENTE: 1, CONFIRMADA: 2, UTILIZADA: 0, CANCELADA: 0, REEMBOLSADA: 1 },
+  compras,
+});
+
 export const categorias = [
   { id: 'cat1', nombre: 'Recitales', descripcion: '' },
   { id: 'cat2', nombre: 'Teatro', descripcion: '' },

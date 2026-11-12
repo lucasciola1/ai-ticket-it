@@ -72,9 +72,9 @@ const BarraCompra = styled.View`
 const FavoritoSobreFoto = { position: 'absolute', top: 12, right: 12 };
 const botonFlexible = { flex: 1 };
 
-/** Texto del botón de compra según el estado del evento. */
+/** Texto del botón de compra según el estado del evento (el organizador no compra: ve sus ventas). */
 const estadoCompra = (evento) => {
-  if (evento.esOrganizador) return { puede: false, texto: 'Es tu evento' };
+  if (evento.esOrganizador) return { puede: true, texto: 'Ver ventas' };
   if (evento.finalizado) return { puede: false, texto: 'Evento finalizado' };
   if (evento.agotado) return { puede: false, texto: 'Agotado' };
   return { puede: true, texto: 'Comprar entradas' };
@@ -181,7 +181,11 @@ export function DetalleEventoScreen({ route, navigation }) {
               style={botonFlexible}
               titulo={estadoCompra(evento).texto}
               deshabilitado={!estadoCompra(evento).puede}
-              onPress={conSesion(() => navigation.navigate('Comprar', { eventoId: evento.id }))}
+              onPress={
+                evento.esOrganizador
+                  ? () => navigation.navigate('ComprasDelEvento', { eventoId: evento.id })
+                  : conSesion(() => navigation.navigate('Comprar', { eventoId: evento.id }))
+              }
             />
           </BarraCompra>
         </Pantalla>

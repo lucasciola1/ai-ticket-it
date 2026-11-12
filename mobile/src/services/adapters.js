@@ -37,6 +37,9 @@ export const aCompra = (c) => ({
 
 export const aMensaje = (m) => ({ ...m, enviado: aFecha(m.enviado) });
 
+/** Los inputs devuelven strings; uno vacío se manda vacío (no como 0) para que el back lo marque. */
+const aNumero = (texto, parsear) => (String(texto).trim() === '' ? undefined : parsear(texto));
+
 /** Inverso: del formulario de evento al body que espera POST /eventos. */
 export const aEventoNuevoBody = (form) => ({
   nombre: form.nombre,
@@ -48,7 +51,7 @@ export const aEventoNuevoBody = (form) => ({
   tiposEntrada: form.tiposEntrada.map((t) => ({
     nombre: t.nombre,
     descripcion: t.descripcion,
-    precio: Number(t.precio), // los inputs devuelven strings
-    cupo: parseInt(t.cupo, 10),
+    precio: aNumero(t.precio, Number),
+    cupo: aNumero(t.cupo, (v) => parseInt(v, 10)),
   })),
 });

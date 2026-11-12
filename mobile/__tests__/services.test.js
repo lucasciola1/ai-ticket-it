@@ -63,4 +63,19 @@ describe('adapters', () => {
     expect(body.multimedia).toEqual(['https://imagen.test/a.jpg']);
     expect(body.tiposEntrada[0]).toEqual({ nombre: 'General', descripcion: '', precio: 1500.5, cupo: 100 });
   });
+
+  it('aEventoNuevoBody no convierte un precio o cupo vacío en 0', () => {
+    const body = aEventoNuevoBody({
+      nombre: 'x',
+      descripcion: '',
+      categoriaId: 'cat',
+      fecha: null,
+      lugar: 'x',
+      multimedia: [],
+      tiposEntrada: [{ nombre: 'General', descripcion: '', precio: '', cupo: ' ' }],
+    });
+    expect(body.tiposEntrada[0].precio).toBeUndefined();
+    expect(body.tiposEntrada[0].cupo).toBeUndefined();
+    expect(body.fecha).toBeUndefined();
+  });
 });
