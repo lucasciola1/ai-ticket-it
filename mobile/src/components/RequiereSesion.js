@@ -9,15 +9,15 @@ const Centro = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: ${({ theme }) => theme.espacio.xl}px;
-  gap: ${({ theme }) => theme.espacio.m}px;
+  padding: ${({ theme }) => `${theme.espacio.xl}px`};
+  gap: ${({ theme }) => `${theme.espacio.m}px`};
   background-color: ${({ theme }) => theme.colores.fondo};
 `;
 
 const Botones = styled.View`
   align-self: stretch;
-  gap: ${({ theme }) => theme.espacio.s}px;
-  margin-top: ${({ theme }) => theme.espacio.m}px;
+  gap: ${({ theme }) => `${theme.espacio.s}px`};
+  margin-top: ${({ theme }) => `${theme.espacio.m}px`};
 `;
 
 const Centrado = styled(TextoSecundario)`

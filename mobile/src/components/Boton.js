@@ -9,14 +9,14 @@ const Contenedor = styled(Pressable)`
   min-height: 48px;
   padding: 12px 20px;
   border-width: 1px;
-  border-radius: ${({ theme }) => theme.radio.m}px;
+  border-radius: ${({ theme }) => `${theme.radio.m}px`};
   border-color: ${({ theme, variante }) => theme.botones[variante].borde};
   background-color: ${({ theme, variante }) => theme.botones[variante].fondo};
   opacity: ${({ inactivo }) => (inactivo ? 0.5 : 1)};
 `;
 
 const Etiqueta = styled.Text`
-  font-size: ${({ theme }) => theme.fuente.normal}px;
+  font-size: ${({ theme }) => `${theme.fuente.normal}px`};
   font-weight: 600;
   color: ${({ theme, variante }) => theme.botones[variante].texto};
 `;

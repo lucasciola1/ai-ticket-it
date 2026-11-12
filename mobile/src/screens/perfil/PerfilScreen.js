@@ -6,8 +6,8 @@ import { PantallaScroll, Subtitulo, TextoSecundario } from '../../components/Tex
 
 const Encabezado = styled.View`
   align-items: center;
-  padding: ${({ theme }) => theme.espacio.xl}px;
-  gap: ${({ theme }) => theme.espacio.xs}px;
+  padding: ${({ theme }) => `${theme.espacio.xl}px`};
+  gap: ${({ theme }) => `${theme.espacio.xs}px`};
 `;
 
 const Avatar = styled.View`
@@ -16,7 +16,7 @@ const Avatar = styled.View`
   border-radius: 36px;
   align-items: center;
   justify-content: center;
-  margin-bottom: ${({ theme }) => theme.espacio.s}px;
+  margin-bottom: ${({ theme }) => `${theme.espacio.s}px`};
   background-color: ${({ theme }) => theme.colores.primarioSuave};
 `;
 
@@ -27,7 +27,7 @@ const Iniciales = styled.Text`
 `;
 
 const Acciones = styled.View`
-  padding: ${({ theme }) => theme.espacio.xl}px;
+  padding: ${({ theme }) => `${theme.espacio.xl}px`};
 `;
 
 export function PerfilScreen() {

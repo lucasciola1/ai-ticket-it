@@ -48,3 +48,15 @@ npm install
 npm start          # Metro
 npm run android    # en otra terminal
 ```
+
+### Correrla en el emulador (Mac, Android 37)
+
+1. Levantar el emulador con render por software (la imagen de Android 37 se cuelga con la GPU):
+   ```bash
+   ~/Library/Android/sdk/emulator/emulator -avd Medium_Phone_API_37.0 -gpu swiftshader_indirect
+   ```
+2. Redirigir los puertos del back y de Metro al emulador:
+   ```bash
+   adb reverse tcp:3000 tcp:3000 && adb reverse tcp:8081 tcp:8081
+   ```
+3. Si aparece **"Unable to load script"**: en el emulador, `Cmd + M` → *Settings* → *Debug server host & port* → `localhost:8081`, y recargar (`R R`). Por defecto el emulador busca Metro en `10.0.2.2`, que en Android 17 requiere el permiso de red local (lo sacamos del manifest porque no hace falta con `adb reverse`).

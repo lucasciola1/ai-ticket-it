@@ -8,8 +8,8 @@ const Centro = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: ${({ theme }) => theme.espacio.xl}px;
-  gap: ${({ theme }) => theme.espacio.l}px;
+  padding: ${({ theme }) => `${theme.espacio.xl}px`};
+  gap: ${({ theme }) => `${theme.espacio.l}px`};
 `;
 
 const MensajeError = styled(Texto)`

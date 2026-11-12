@@ -3,13 +3,13 @@ import { useTheme } from '@emotion/react';
 import { TextoError } from './Textos';
 
 const Contenedor = styled.View`
-  margin-bottom: ${({ theme }) => theme.espacio.l}px;
+  margin-bottom: ${({ theme }) => `${theme.espacio.l}px`};
 `;
 
 const Etiqueta = styled.Text`
-  font-size: ${({ theme }) => theme.fuente.chica}px;
+  font-size: ${({ theme }) => `${theme.fuente.chica}px`};
   font-weight: 600;
-  margin-bottom: ${({ theme }) => theme.espacio.xs}px;
+  margin-bottom: ${({ theme }) => `${theme.espacio.xs}px`};
   color: ${({ theme }) => theme.colores.texto};
 `;
 
@@ -17,10 +17,10 @@ const Input = styled.TextInput`
   min-height: 48px;
   padding: 10px 14px;
   border-width: 1px;
-  border-radius: ${({ theme }) => theme.radio.m}px;
+  border-radius: ${({ theme }) => `${theme.radio.m}px`};
   border-color: ${({ theme, conError }) => (conError ? theme.colores.error : theme.colores.borde)};
   background-color: ${({ theme }) => theme.colores.superficie};
-  font-size: ${({ theme }) => theme.fuente.normal}px;
+  font-size: ${({ theme }) => `${theme.fuente.normal}px`};
   color: ${({ theme }) => theme.colores.texto};
 `;
 

@@ -1,6 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- React Native lo agrega para llegar a Metro por la red local (Android 17+).
+         No hace falta: Metro y el back se acceden por localhost con `adb reverse`. -->
+    <uses-permission android:name="android.permission.ACCESS_LOCAL_NETWORK" tools:node="remove" />
 
     <application
       android:name=".MainApplication"
